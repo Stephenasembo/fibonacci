@@ -11,3 +11,15 @@ function fibs(n) {
 }
 
 fibs(13);
+
+// Hardcoded array to prevent negative array indices
+function fibsRec(n, array = [0, 1]) {
+  if (array.length === n) {
+    return array;
+  }
+  const copyArr = array.slice();
+  copyArr[copyArr.length] = (copyArr[copyArr.length - 1]) + (copyArr[copyArr.length - 2]);
+  return fibsRec(n, copyArr);
+}
+
+fibsRec(4);
