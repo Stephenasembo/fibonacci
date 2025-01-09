@@ -1,33 +1,27 @@
 function merge(left, right) {
   const sortedArr = [];
   const sortedLength = left.length + right.length;
-  let leftIndex = 0;
-  let rightIndex = 0;
   for (let i = 0; i < sortedLength; i += 1) {
     // Make sure there is a number in the array index
-    if (
-      (left[leftIndex] && right[rightIndex])
-      || left[leftIndex] === 0
-      || right[rightIndex] === 0
-    ) {
-      if (left[leftIndex] < right[rightIndex]) {
-        sortedArr.push(left[leftIndex]);
-        leftIndex += 1;
-      } else if (right[rightIndex] < left[leftIndex]) {
-        sortedArr.push(right[rightIndex]);
-        rightIndex += 1;
+    if (left.length && right.length) {
+      if (left[0] < right[0]) {
+        sortedArr.push(left[0]);
+        left.shift();
+      } else if (right[0] < left[0]) {
+        sortedArr.push(right[0]);
+        right.shift();
       } else {
         // Left side is added first on equal numbers
-        sortedArr.push(left[leftIndex]);
-        leftIndex += 1;
+        sortedArr.push(left[0]);
+        left.shift();
       }
-    } else if (!left[leftIndex] && left[leftIndex] !== 0) {
+    } else if (!left.length) {
       // Push the remaining elements after one array has been emptied
-      const rightRemnants = right.slice(rightIndex, right.length);
+      const rightRemnants = right.slice(0, right.length);
       sortedArr.push(...rightRemnants);
       break;
-    } else if (!right[rightIndex] && right[rightIndex] !== 0) {
-      const leftRemnants = left.slice(leftIndex, left.length);
+    } else if (!right.length) {
+      const leftRemnants = left.slice(0, left.length);
       sortedArr.push(...leftRemnants);
       break;
     }
@@ -51,4 +45,4 @@ function mergeSort(array) {
 
 const testArr = [3, 2, 1, 13, 8, 5, 0, 1];
 
-mergeSort(testArr);
+console.log(mergeSort(testArr));
