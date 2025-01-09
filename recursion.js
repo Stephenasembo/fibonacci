@@ -5,7 +5,7 @@ function fibs(n) {
   array[0] = 0;
   array[1] = 1;
   for (let i = 2; i < n; i += 1) {
-    array[i] = (array[i - 1] + array[i - 2]);
+    array[i] = array[i - 1] + array[i - 2];
   }
   return array;
 }
@@ -18,7 +18,8 @@ function fibsRec(n, array = [0, 1]) {
     return array;
   }
   const copyArr = array.slice();
-  copyArr[copyArr.length] = (copyArr[copyArr.length - 1]) + (copyArr[copyArr.length - 2]);
+  copyArr[copyArr.length] = copyArr[copyArr.length - 1]
+  + copyArr[copyArr.length - 2];
   return fibsRec(n, copyArr);
 }
 
