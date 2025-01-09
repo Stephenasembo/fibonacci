@@ -1,30 +1,34 @@
-function merge(left, right) {
-  const sortedArr = [];
-  const sortedLength = left.length + right.length;
-  for (let i = 0; i < sortedLength; i += 1) {
-    // Make sure there is a number in the array index
-    if (left.length && right.length) {
-      if (left[0] < right[0]) {
-        sortedArr.push(left[0]);
-        left.shift();
-      } else if (right[0] < left[0]) {
-        sortedArr.push(right[0]);
-        right.shift();
-      } else {
-        // Left side is added first on equal numbers
-        sortedArr.push(left[0]);
-        left.shift();
-      }
-    } else if (!left.length) {
-      // Push the remaining elements after one array has been emptied
-      const rightRemnants = right.slice(0, right.length);
-      sortedArr.push(...rightRemnants);
-      break;
-    } else if (!right.length) {
-      const leftRemnants = left.slice(0, left.length);
-      sortedArr.push(...leftRemnants);
-      break;
+function merge(left, right, sortedArr = []) {
+  // Make sure there is a number in the array index
+  if (!left.length && !right.length) {
+    return sortedArr;
+  }
+  if (left.length && right.length) {
+    if (left[0] < right[0]) {
+      sortedArr.push(left[0]);
+      left.shift();
+      return merge(left, right, sortedArr);
     }
+    if (right[0] < left[0]) {
+      sortedArr.push(right[0]);
+      right.shift();
+      return merge(left, right, sortedArr);
+    }
+    if (left[0] === right[0]) {
+      // Left side is added first on equal numbers
+      sortedArr.push(left[0]);
+      left.shift();
+      return merge(left, right, sortedArr);
+    }
+  } else if (!left.length) {
+    // Push the remaining elements after one array has been emptied
+    const rightRemnants = right.slice(0, right.length);
+    sortedArr.push(...rightRemnants);
+    return sortedArr;
+  } else if (!right.length) {
+    const leftRemnants = left.slice(0, left.length);
+    sortedArr.push(...leftRemnants);
+    return sortedArr;
   }
   return sortedArr;
 }
@@ -45,4 +49,4 @@ function mergeSort(array) {
 
 const testArr = [3, 2, 1, 13, 8, 5, 0, 1];
 
-console.log(mergeSort(testArr));
+mergeSort(testArr);
