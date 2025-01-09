@@ -1,4 +1,5 @@
-function merge(left, right, sortedArr = []) {
+function merge(left, right) {
+  const sortedArr = [];
   // Make sure there is a number in the array index
   if (!left.length && !right.length) {
     return sortedArr;
@@ -7,18 +8,18 @@ function merge(left, right, sortedArr = []) {
     if (left[0] < right[0]) {
       sortedArr.push(left[0]);
       left.shift();
-      return merge(left, right, sortedArr);
+      return sortedArr.concat(merge(left, right));
     }
     if (right[0] < left[0]) {
       sortedArr.push(right[0]);
       right.shift();
-      return merge(left, right, sortedArr);
+      return sortedArr.concat(merge(left, right));
     }
     if (left[0] === right[0]) {
       // Left side is added first on equal numbers
       sortedArr.push(left[0]);
       left.shift();
-      return merge(left, right, sortedArr);
+      return sortedArr.concat(merge(left, right));
     }
   } else if (!left.length) {
     // Push the remaining elements after one array has been emptied
